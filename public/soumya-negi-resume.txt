@@ -1,0 +1,29 @@
+SOUMYA NEGI
+Senior QA Automation Engineer
+
+PROFILE
+QA Automation Engineer with 4+ years of experience building reliable test systems and supporting confident software delivery. Testing experience includes healthcare and fintech domains.
+
+CORE EXPERTISE
+Automation: Playwright, Selenium, Cypress
+Languages: TypeScript, JavaScript, Java, SQL
+API: Postman, REST Assured
+Cloud: AWS
+DevOps: GitHub Actions, Docker, CI/CD
+Tools: Jira, Confluence, Git
+Testing: Functional, regression, API, SQL, payment, and mobile testing
+
+SELECTED PROJECTS
+Enterprise Playwright Framework
+POM architecture, data-driven testing, API testing, Docker support, Allure reports, and GitHub Actions.
+
+Healthcare Testing Platform
+Functional and regression testing, API validation, and SQL validation.
+
+Fintech Testing
+Payment testing, database validation, and mobile testing.
+
+CONTACT
+Email: soumyanegi21@gmail.com
+LinkedIn: https://www.linkedin.com/in/soumya-negi-694a16132
+GitHub: https://github.com/soumyanegi21-collab
