@@ -6,8 +6,8 @@ type MagneticProps = { children: ReactNode };
 export function Magnetic({ children }: MagneticProps) {
   const pointerX = useMotionValue(0);
   const pointerY = useMotionValue(0);
-  const x = useSpring(pointerX, { stiffness: 260, damping: 18, mass: 0.35 });
-  const y = useSpring(pointerY, { stiffness: 260, damping: 18, mass: 0.35 });
+  const x = useSpring(pointerX, { stiffness: 420, damping: 30, mass: 0.25 });
+  const y = useSpring(pointerY, { stiffness: 420, damping: 30, mass: 0.25 });
   const reducedMotion = useReducedMotion();
 
   return (

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
 
 const particles = Array.from({ length: 52 }, (_, index) => ({
@@ -10,6 +10,8 @@ const particles = Array.from({ length: 52 }, (_, index) => ({
 }));
 
 export function BackgroundEffects() {
+  const pointerGlowRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const root = document.documentElement;
     let frame = 0;
@@ -20,12 +22,13 @@ export function BackgroundEffects() {
 
     const updateEffects = () => {
       frame = 0;
-      pointerX += (targetX - pointerX) * 0.16;
-      pointerY += (targetY - pointerY) * 0.16;
+      pointerX += (targetX - pointerX) * 0.32;
+      pointerY += (targetY - pointerY) * 0.32;
+      if (pointerGlowRef.current) {
+        pointerGlowRef.current.style.transform = `translate3d(${pointerX}px, ${pointerY}px, 0) translate(-50%, -50%)`;
+      }
       const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progress = scrollableHeight > 0 ? window.scrollY / scrollableHeight : 0;
-      root.style.setProperty('--pointer-x', `${pointerX}px`);
-      root.style.setProperty('--pointer-y', `${pointerY}px`);
       root.style.setProperty('--scroll-progress', `${progress}`);
       if (Math.abs(targetX - pointerX) > 0.5 || Math.abs(targetY - pointerY) > 0.5) {
         frame = window.requestAnimationFrame(updateEffects);
@@ -82,7 +85,7 @@ export function BackgroundEffects() {
         </div>
         <div className="noise-overlay" />
       </div>
-      <div className="pointer-glow" aria-hidden="true" />
+      <div className="pointer-glow" ref={pointerGlowRef} aria-hidden="true" />
       <div className="scroll-progress" aria-hidden="true" />
     </>
   );
