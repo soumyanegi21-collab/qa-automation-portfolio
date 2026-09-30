@@ -1,4 +1,5 @@
-import { m, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { useRef } from 'react';
+import type { PointerEvent } from 'react';
 import { FaArrowDown, FaArrowRight, FaBolt, FaCloud, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiSelenium, SiTypescript } from 'react-icons/si';
 import { profile } from '../data/portfolio';
@@ -15,56 +16,50 @@ const rolePhrases = [
 
 export function Hero() {
   const animatedRole = useTypewriter(rolePhrases);
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-  const rawRotateX = useMotionValue(0);
-  const rawRotateY = useMotionValue(0);
-  const x = useSpring(rawX, { stiffness: 80, damping: 22 });
-  const y = useSpring(rawY, { stiffness: 80, damping: 22 });
-  const rotateX = useSpring(rawRotateX, { stiffness: 90, damping: 22 });
-  const rotateY = useSpring(rawRotateY, { stiffness: 90, damping: 22 });
-  const reducedMotion = useReducedMotion();
+  const visualRef = useRef<HTMLDivElement>(null);
+
+  const handleVisualPointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const horizontal = (event.clientX - bounds.left) / bounds.width - 0.5;
+    const vertical = (event.clientY - bounds.top) / bounds.height - 0.5;
+    event.currentTarget.style.transform = `perspective(1100px) translate3d(${-horizontal * 8}px, ${-vertical * 6}px, 0) rotateX(${vertical * 2.5}deg) rotateY(${horizontal * 3.5}deg)`;
+  };
+
+  const handleVisualPointerLeave = () => {
+    if (!visualRef.current) return;
+    visualRef.current.style.transition = 'transform 180ms ease-out';
+    visualRef.current.style.transform = 'perspective(1100px)';
+  };
 
   return (
     <section className="hero section-shell" id="home">
       <div className="hero-grid page-width">
         <div className="hero-copy">
-          <m.p className="availability" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+          <p className="availability">
             <span className="status-pulse" /> QUALITY, BUILT IN
-          </m.p>
-          <m.p className="hero-intro" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>Hello, I'm</m.p>
-          <m.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.65 }}>
+          </p>
+          <p className="hero-intro">Hello, I'm</p>
+          <h1>
             Soumya <span>Negi</span>
-          </m.h1>
-          <m.h2 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>{profile.role}</m.h2>
+          </h1>
+          <h2>{profile.role}</h2>
           <p className="role-cycle"><span aria-hidden="true">&gt;_</span> {animatedRole}<i aria-hidden="true" /></p>
-          <m.p className="hero-summary" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.7 }}>{profile.summary}</m.p>
-          <m.div className="hero-actions" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+          <p className="hero-summary">{profile.summary}</p>
+          <div className="hero-actions">
             <Magnetic><a className="button button-primary" href="#contact">Let's connect <FaArrowRight aria-hidden="true" /></a></Magnetic>
             <Magnetic><a className="button button-outline" href={`${import.meta.env.BASE_URL}soumya-negi-resume.pdf`} download>Download resume <FaArrowDown aria-hidden="true" /></a></Magnetic>
-          </m.div>
+          </div>
           <div className="social-links">
             <a href={profile.github} target="_blank" rel="noreferrer"><FaGithub aria-hidden="true" /> GitHub <span>↗</span></a>
             <a href={profile.linkedin} target="_blank" rel="noreferrer"><FaLinkedin aria-hidden="true" /> LinkedIn <span>↗</span></a>
           </div>
         </div>
-        <m.div
+        <div
+          ref={visualRef}
           className="hero-visual"
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.35, duration: 0.8 }}
-          style={{ x, y, rotateX, rotateY, transformPerspective: 1100 }}
-          onPointerMove={(event) => {
-            if (event.pointerType !== 'mouse' || reducedMotion) return;
-            const bounds = event.currentTarget.getBoundingClientRect();
-            const horizontal = (event.clientX - bounds.left) / bounds.width - 0.5;
-            const vertical = (event.clientY - bounds.top) / bounds.height - 0.5;
-            rawX.set(-horizontal * 8);
-            rawY.set(-vertical * 6);
-            rawRotateX.set(vertical * 2.5);
-            rawRotateY.set(horizontal * 3.5);
-          }}
-          onPointerLeave={() => { rawX.set(0); rawY.set(0); rawRotateX.set(0); rawRotateY.set(0); }}
+          onPointerMove={handleVisualPointerMove}
+          onPointerLeave={handleVisualPointerLeave}
           aria-label="Illustration of an automated quality dashboard"
           role="img"
         >
@@ -94,7 +89,7 @@ export function Hero() {
             <span className="orbit-tech orbit-tech-aws"><FaCloud /></span>
           </div>
           <span className="visual-index">01 — 09</span>
-        </m.div>
+        </div>
       </div>
       <a className="scroll-cue" href="#about"><span>SCROLL TO EXPLORE</span><i /></a>
     </section>

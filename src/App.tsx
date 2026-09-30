@@ -1,5 +1,4 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
-import { domAnimation, LazyMotion, MotionConfig } from 'framer-motion';
 import { Header } from './components/Header';
 import { BackgroundEffects } from './components/BackgroundEffects';
 import { useTheme } from './hooks/useTheme';
@@ -53,8 +52,7 @@ export default function App() {
   };
 
   return (
-    <MotionConfig reducedMotion="user">
-      <LazyMotion features={domAnimation}>
+    <>
       <a className="skip-link" href="#main-content">Skip to content</a>
       <BackgroundEffects />
       <Header theme={theme} onToggleTheme={toggleTheme} sectionsLoaded={sectionsLoaded} onDeferredNavigate={handleDeferredNavigation} />
@@ -70,7 +68,6 @@ export default function App() {
           )}
         </div>
       </main>
-      </LazyMotion>
-    </MotionConfig>
+    </>
   );
 }

@@ -1,5 +1,3 @@
-import { animate, m, useInView, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
-import { useEffect, useRef } from 'react';
 import { projects, skillGroups } from '../data/portfolio';
 import { Reveal } from '../components/Reveal';
 
@@ -14,19 +12,7 @@ const metrics = [
 type CountUpProps = { value: number; suffix: string };
 
 function CountUp({ value, suffix }: CountUpProps) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-24px' });
-  const reducedMotion = useReducedMotion();
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => Math.round(latest).toString());
-
-  useEffect(() => {
-    if (!inView) return;
-    const controls = animate(count, value, { duration: reducedMotion ? 0 : 1.25, ease: 'easeOut' });
-    return controls.stop;
-  }, [count, inView, reducedMotion, value]);
-
-  return <span className="impact-value"><m.span ref={ref}>{rounded}</m.span>{suffix}</span>;
+  return <span className="impact-value">{value}{suffix}</span>;
 }
 
 export function Impact() {

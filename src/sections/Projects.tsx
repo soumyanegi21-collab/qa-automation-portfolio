@@ -1,5 +1,6 @@
 import { FaArrowRight, FaGithub } from 'react-icons/fa';
-import { m, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { useRef } from 'react';
+import type { PointerEvent } from 'react';
 import { projects, profile } from '../data/portfolio';
 import { Reveal } from '../components/Reveal';
 import { SectionHeading } from '../components/SectionHeading';
@@ -7,23 +8,27 @@ import { SectionHeading } from '../components/SectionHeading';
 type ProjectVisualProps = { kind: string; number: string };
 
 function ProjectVisual({ kind, number }: ProjectVisualProps) {
-  const rawTiltX = useMotionValue(0);
-  const rawTiltY = useMotionValue(0);
-  const tiltX = useSpring(rawTiltX, { stiffness: 180, damping: 24 });
-  const tiltY = useSpring(rawTiltY, { stiffness: 180, damping: 24 });
-  const reducedMotion = useReducedMotion();
+  const visualRef = useRef<HTMLDivElement>(null);
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== 'mouse' || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.transition = 'none';
+    event.currentTarget.style.transform = `perspective(1000px) rotateX(${ -((event.clientY - bounds.top) / bounds.height - 0.5) * 5}deg) rotateY(${((event.clientX - bounds.left) / bounds.width - 0.5) * 7}deg)`;
+  };
+
+  const handlePointerLeave = () => {
+    if (!visualRef.current) return;
+    visualRef.current.style.transition = 'transform 180ms ease-out';
+    visualRef.current.style.transform = 'perspective(1000px)';
+  };
 
   return (
-    <m.div
+    <div
+      ref={visualRef}
       className="project-visual-tilt"
-      style={{ rotateX: tiltX, rotateY: tiltY, transformPerspective: 1000 }}
-      onPointerMove={(event) => {
-        if (event.pointerType !== 'mouse' || reducedMotion) return;
-        const bounds = event.currentTarget.getBoundingClientRect();
-        rawTiltX.set(-((event.clientY - bounds.top) / bounds.height - 0.5) * 5);
-        rawTiltY.set(((event.clientX - bounds.left) / bounds.width - 0.5) * 7);
-      }}
-      onPointerLeave={() => { rawTiltX.set(0); rawTiltY.set(0); }}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={handlePointerLeave}
     >
       <div className={`project-visual visual-${kind}`} role="img" aria-label={`${kind} project interface illustration`}>
         <div className="preview-topbar"><span className="preview-logo">Q<span>.</span></span><span className="preview-route">/ workspace / {kind}</span><span className="preview-live"><i /> LIVE</span></div>
@@ -37,7 +42,7 @@ function ProjectVisual({ kind, number }: ProjectVisualProps) {
           </div>
         </div>
       </div>
-    </m.div>
+    </div>
   );
 }
 
