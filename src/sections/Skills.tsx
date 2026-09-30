@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { skillGroups } from '../data/portfolio';
 import { SectionHeading } from '../components/SectionHeading';
 
@@ -9,7 +9,7 @@ export function Skills() {
         <SectionHeading eyebrow="MY TOOLKIT" title="The right tools. Better outcomes." description="A flexible quality toolkit for finding risk, proving behavior, and keeping delivery moving." />
         <div className="skills-grid">
           {skillGroups.map((group, index) => (
-            <motion.article
+            <m.article
               className="skill-card"
               key={group.title}
               initial={{ opacity: 0, y: 22 }}
@@ -27,9 +27,9 @@ export function Skills() {
                 <span>{group.skills.length} tools</span>
               </div>
               <div className="skill-meter" role="progressbar" aria-label={`${group.title} tools in toolkit`} aria-valuemin={0} aria-valuemax={4} aria-valuenow={group.skills.length}>
-                <motion.span initial={{ width: 0 }} whileInView={{ width: `${(group.skills.length / 4) * 100}%` }} viewport={{ once: true }} transition={{ duration: 1.1, delay: index * 0.07, ease: 'easeOut' }} />
+                <m.span initial={{ width: 0 }} whileInView={{ width: `${(group.skills.length / 4) * 100}%` }} viewport={{ once: true }} transition={{ duration: 1.1, delay: index * 0.07, ease: 'easeOut' }} />
               </div>
-            </motion.article>
+            </m.article>
           ))}
         </div>
       </div>

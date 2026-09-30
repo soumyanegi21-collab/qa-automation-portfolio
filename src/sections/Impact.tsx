@@ -1,4 +1,4 @@
-import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
+import { animate, m, useInView, useMotionValue, useReducedMotion, useTransform } from 'framer-motion';
 import { useEffect, useRef } from 'react';
 import { projects, skillGroups } from '../data/portfolio';
 import { Reveal } from '../components/Reveal';
@@ -26,7 +26,7 @@ function CountUp({ value, suffix }: CountUpProps) {
     return controls.stop;
   }, [count, inView, reducedMotion, value]);
 
-  return <span className="impact-value"><motion.span ref={ref}>{rounded}</motion.span>{suffix}</span>;
+  return <span className="impact-value"><m.span ref={ref}>{rounded}</m.span>{suffix}</span>;
 }
 
 export function Impact() {

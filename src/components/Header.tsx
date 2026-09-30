@@ -14,9 +14,11 @@ const links = [
 type HeaderProps = {
   theme: Theme;
   onToggleTheme: () => void;
+  sectionsLoaded: boolean;
+  onDeferredNavigate: (sectionId: string) => void;
 };
 
-export function Header({ theme, onToggleTheme }: HeaderProps) {
+export function Header({ theme, onToggleTheme, sectionsLoaded, onDeferredNavigate }: HeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -42,7 +44,16 @@ export function Header({ theme, onToggleTheme }: HeaderProps) {
       observer.disconnect();
       window.removeEventListener('scroll', updateScrollState);
     };
-  }, []);
+  }, [sectionsLoaded]);
+
+  const handleNavigation = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    setMenuOpen(false);
+    const sectionId = href.slice(1);
+    if (!document.getElementById(sectionId)) {
+      event.preventDefault();
+      onDeferredNavigate(sectionId);
+    }
+  };
 
   return (
     <header className={`site-header${isScrolled ? ' is-scrolled' : ''}`}>
@@ -52,9 +63,9 @@ export function Header({ theme, onToggleTheme }: HeaderProps) {
         </a>
         <nav className={`main-nav${menuOpen ? ' nav-open' : ''}`} aria-label="Main navigation">
           {links.map(([label, href]) => (
-            <a key={href} href={href} aria-current={activeSection === href.slice(1) ? 'location' : undefined} onClick={() => setMenuOpen(false)}>{label}</a>
+            <a key={href} href={href} aria-current={activeSection === href.slice(1) ? 'location' : undefined} onClick={(event) => handleNavigation(event, href)}>{label}</a>
           ))}
-          <a className="nav-contact" href="#contact" aria-current={activeSection === 'contact' ? 'location' : undefined} onClick={() => setMenuOpen(false)}>
+          <a className="nav-contact" href="#contact" aria-current={activeSection === 'contact' ? 'location' : undefined} onClick={(event) => handleNavigation(event, '#contact')}>
             Let's talk <span aria-hidden="true">↗</span>
           </a>
         </nav>

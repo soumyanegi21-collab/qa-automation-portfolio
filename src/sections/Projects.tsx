@@ -1,5 +1,5 @@
 import { FaArrowRight, FaGithub } from 'react-icons/fa';
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { m, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
 import { projects, profile } from '../data/portfolio';
 import { Reveal } from '../components/Reveal';
 import { SectionHeading } from '../components/SectionHeading';
@@ -14,7 +14,7 @@ function ProjectVisual({ kind, number }: ProjectVisualProps) {
   const reducedMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       className="project-visual-tilt"
       style={{ rotateX: tiltX, rotateY: tiltY, transformPerspective: 1000 }}
       onPointerMove={(event) => {
@@ -37,7 +37,7 @@ function ProjectVisual({ kind, number }: ProjectVisualProps) {
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
 

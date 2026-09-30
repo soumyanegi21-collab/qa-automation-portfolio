@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { m, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
 import { FaArrowDown, FaArrowRight, FaBolt, FaCloud, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { SiSelenium, SiTypescript } from 'react-icons/si';
 import { profile } from '../data/portfolio';
@@ -29,26 +29,26 @@ export function Hero() {
     <section className="hero section-shell" id="home">
       <div className="hero-grid page-width">
         <div className="hero-copy">
-          <motion.p className="availability" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
+          <m.p className="availability" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 }}>
             <span className="status-pulse" /> QUALITY, BUILT IN
-          </motion.p>
-          <motion.p className="hero-intro" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>Hello, I'm</motion.p>
-          <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.65 }}>
+          </m.p>
+          <m.p className="hero-intro" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.25 }}>Hello, I'm</m.p>
+          <m.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.65 }}>
             Soumya <span>Negi</span>
-          </motion.h1>
-          <motion.h2 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>{profile.role}</motion.h2>
+          </m.h1>
+          <m.h2 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>{profile.role}</m.h2>
           <p className="role-cycle"><span aria-hidden="true">&gt;_</span> {animatedRole}<i aria-hidden="true" /></p>
-          <motion.p className="hero-summary" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.7 }}>{profile.summary}</motion.p>
-          <motion.div className="hero-actions" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+          <m.p className="hero-summary" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.7 }}>{profile.summary}</m.p>
+          <m.div className="hero-actions" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
             <Magnetic><a className="button button-primary" href="#contact">Let's connect <FaArrowRight aria-hidden="true" /></a></Magnetic>
             <Magnetic><a className="button button-outline" href={`${import.meta.env.BASE_URL}soumya-negi-resume.pdf`} download>Download resume <FaArrowDown aria-hidden="true" /></a></Magnetic>
-          </motion.div>
+          </m.div>
           <div className="social-links">
             <a href={profile.github} target="_blank" rel="noreferrer"><FaGithub aria-hidden="true" /> GitHub <span>↗</span></a>
             <a href={profile.linkedin} target="_blank" rel="noreferrer"><FaLinkedin aria-hidden="true" /> LinkedIn <span>↗</span></a>
           </div>
         </div>
-        <motion.div
+        <m.div
           className="hero-visual"
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -94,7 +94,7 @@ export function Hero() {
             <span className="orbit-tech orbit-tech-aws"><FaCloud /></span>
           </div>
           <span className="visual-index">01 — 09</span>
-        </motion.div>
+        </m.div>
       </div>
       <a className="scroll-cue" href="#about"><span>SCROLL TO EXPLORE</span><i /></a>
     </section>

@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { experience } from '../data/portfolio';
 import { Reveal } from '../components/Reveal';
 import { SectionHeading } from '../components/SectionHeading';
@@ -9,7 +9,7 @@ export function Experience() {
       <div className="page-width">
         <SectionHeading eyebrow="HOW I WORK" title="From test strategy to signal." description="A connected approach to quality, built around the way real teams deliver." />
         <div className="timeline">
-          <motion.div className="timeline-progress" aria-hidden="true" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 1.5, ease: 'easeOut' }} />
+          <m.div className="timeline-progress" aria-hidden="true" initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true, amount: 0.2 }} transition={{ duration: 1.5, ease: 'easeOut' }} />
           {experience.map((item, index) => (
             <Reveal key={item.title} delay={index * 0.1} className="timeline-item">
               <div className="timeline-marker"><span>0{index + 1}</span></div>

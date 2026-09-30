@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
+import { m, useMotionValue, useReducedMotion, useSpring } from 'framer-motion';
 import type { ReactNode } from 'react';
 
 type MagneticProps = { children: ReactNode };
@@ -11,7 +11,7 @@ export function Magnetic({ children }: MagneticProps) {
   const reducedMotion = useReducedMotion();
 
   return (
-    <motion.div
+    <m.div
       className="magnetic-wrap"
       style={{ x, y }}
       onPointerMove={(event) => {
@@ -23,6 +23,6 @@ export function Magnetic({ children }: MagneticProps) {
       onPointerLeave={() => { pointerX.set(0); pointerY.set(0); }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

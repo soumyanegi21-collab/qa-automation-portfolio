@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import type { CSSProperties } from 'react';
 
-const particles = Array.from({ length: 52 }, (_, index) => ({
+const particles = Array.from({ length: 24 }, (_, index) => ({
   left: `${(index * 73 + 17) % 100}%`,
   top: `${(index * 41 + 9) % 100}%`,
   size: `${1 + ((index * 7) % 3)}px`,
@@ -83,7 +83,6 @@ export function BackgroundEffects() {
             />
           ))}
         </div>
-        <div className="noise-overlay" />
       </div>
       <div className="pointer-glow" ref={pointerGlowRef} aria-hidden="true" />
       <div className="scroll-progress" aria-hidden="true" />
