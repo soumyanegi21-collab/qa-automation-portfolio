@@ -41,7 +41,7 @@ export function Hero() {
           <motion.p className="hero-summary" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5, duration: 0.7 }}>{profile.summary}</motion.p>
           <motion.div className="hero-actions" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
             <Magnetic><a className="button button-primary" href="#contact">Let's connect <FaArrowRight aria-hidden="true" /></a></Magnetic>
-            <Magnetic><a className="button button-outline" href={`${import.meta.env.BASE_URL}soumya-negi-resume.txt`} download>Download resume <FaArrowDown aria-hidden="true" /></a></Magnetic>
+            <Magnetic><a className="button button-outline" href={`${import.meta.env.BASE_URL}soumya-negi-resume.pdf`} download>Download resume <FaArrowDown aria-hidden="true" /></a></Magnetic>
           </motion.div>
           <div className="social-links">
             <a href={profile.github} target="_blank" rel="noreferrer"><FaGithub aria-hidden="true" /> GitHub <span>↗</span></a>
